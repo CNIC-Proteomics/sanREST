@@ -1,0 +1,20 @@
+---
+# Folders
+job_dir: jobs
+src_dir: src
+sanpro_dir: src/sanpro
+
+# The different status for a job
+status:
+- status: RUNNING
+  log: The program has started
+- status: PENDING
+  log: The program is running
+- status: FINISHED
+  log: The program has finished successfully
+- status: ERROR
+  log: The program encountered an error
+
+
+# Executables for the scripts
+python_exec: c:/Users/jmrodriguezc/softwares/Python_3.10.1/python
