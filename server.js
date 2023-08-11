@@ -59,8 +59,12 @@ const options = {
     },
     servers: [
       {
-        local: "http://localhost:3000",
-        cnic_27181: "http://10.142.32.36:3000",
+        url: "http://localhost:3000",
+        description: "Localhost server"
+      },
+      {
+        url: "http://10.142.32.36:3000",
+        description: "cnic-27181 IP server"
       },
     ],
   },
