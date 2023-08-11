@@ -4,7 +4,7 @@ A RESTful API that describes the web services and the operations for the report 
 To start it, install Node and run:
 ```
 npm install
-npm start
+npm run start
 ```
 
 # INSTALLATION
@@ -18,3 +18,14 @@ Install Swagger:
 ```
 npm install swagger-ui-express swagger-jsdoc
 ```
+
+
+
+# RUN SCRIPTS
+npm run-script:
+  run
+    node -e 'console.log(process.cwd()'
+  stopall
+    forever stopall
+  restartall
+    forever restartall

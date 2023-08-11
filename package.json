@@ -4,8 +4,8 @@
   "description": "A RESTful API that describes the web services and the operations for the report files of iSanXoT",
   "main": "server.js",
   "scripts": {
-    "start": "forever start -p \"/home/jmrodriguezc/projects/sanREST\" -l logs/sanrest.log -o logs/sanrest.log -e logs/sanrest.err   server.js",
-    "restart": "forever restart -p \"/home/jmrodriguezc/projects/sanREST\" -l logs/sanrest.log -o logs/sanrest.log -e logs/sanrest.err   server.js",
+    "start": "forever start -p \"%INIT_CWD%\" -l logs/sanrest.log -o logs/sanrest.log -e logs/sanrest.err   server.js",
+    "restart": "forever restart -p \"%INIT_CWD%\" -l logs/sanrest.log -o logs/sanrest.log -e logs/sanrest.err   server.js",
     "test": "forever start -d server.js",
     "stop": "forever stop server.js",
     "stopall": "forever stopall",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/CNIC-Proteomics/sanREST#readme",
   "dependencies": {
+    "cross-env": "^7.0.3",
     "express": "^4.18.2",
     "express-ruid": "^1.1.5",
     "find-remove": "^4.1.0",
