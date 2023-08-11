@@ -59,8 +59,8 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
-        url: "http://172.18.234.197:3000",
+        local: "http://localhost:3000",
+        cnic_27181: "http://10.142.32.36:3000",
       },
     ],
   },
