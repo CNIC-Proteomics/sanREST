@@ -13,9 +13,11 @@ const common = require("./common.js");
  * 
  **/
 // Handle the disk storage for the files
+// Create the unique output directory
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     let dir = path.join(common.job_dir, req.rid);
+    // let dir = path.join(common.job_dir, 'cnic-24644@32164_6041b930506685832a85af4e-0000000000000001');
     common.create_directory(dir);
     cb(null, dir);
   },
@@ -66,7 +68,7 @@ const upload_files_job = multer({
  *       200:
  *         description: Report containg the peptide positions
  *         content:
- *           text/tab-separated-values;charset=UTF-8:
+ *           application/zip:
  *             schema:
  *              type: string
  *              format: binary
@@ -78,7 +80,7 @@ const upload_files_job = multer({
 // *       200:
 // *         description: Report containg the peptide positions
 // *         content:
-// *           text/plain;charset=utf-8:
+// *           text/tab-separated-values;charset=UTF-8:
 // *             schema:
 // *               type: file
 // *       500:
@@ -88,51 +90,53 @@ router.post('/add_pep_position', upload_files_job.any(), function (req, res) {
 
   // get the request identifier (job id)
   let job_id = req.rid;
+  // let job_id = 'cnic-24644@32164_6041b930506685832a85af4e-0000000000000001';
 
-  // obtain the path from the request files
+  // obtain the inputs files from the request
   // console.log(req.files);
   let r_path = req.files.find(f => f.fieldname === 'report').path;
-  let f_path = req.files.find(f => f.fieldname === 'fasta').path;
+  let f_path = req.files.find(f => f.fieldname === 'fasta').path; 
   let in_report = path.join( common.root_dir, r_path);
   let in_fasta = path.join( common.root_dir, f_path);
+  // obtain the output path from the request files
+  let out_dir = path.join( common.root_dir, req.files.find(f => f.fieldname === 'report').destination );
+
+
   // obtain the rest of parameters from the request body
   // console.log(req.body);
   let in_pep_label = req.body.peptide_header;
   let in_pro_label = req.body.protein_header;
   // create output based on input file
-  let out_report = path.join( path.parse(in_report).dir, `${path.parse(in_report).name}.out.tsv`);
-  let out_log = path.join( path.parse(in_report).dir, 'job.log');
+  let out_report_n = `${path.parse(in_report).name}.out.tsv`;
+  let out_report = path.join(out_dir, out_report_n);
+  let out_log_n = 'job.log';
+  let out_log = path.join(out_dir, out_log_n);
 
-  // // create the command line
-  // let script = 'positioner/add_pep_position.py';
-  // // let cmd = `"${common.python_exec}" "${path.join('S:/U_Proteomica/UNIDAD/DatosCrudos/jmrodriguezc/projects/sanpro/src/positioner', script)}" \
-  // let cmd = `"${common.python_exec}" "${path.join(common.sanpro_dir, script)}" \
-  // -i "${in_report}" \
-  // -f "${in_fasta}" \
-  // -hp "${in_pep_label}" \
-  // -hq "${in_pro_label}" \
-  // -o  "${out_report}" \
-  // 1> ${out_log} 2>&1`;
+  // create the command line
+  let script = 'positioner/add_pep_position.py';
+  // let cmd = `"${common.python_exec}" "${path.join('S:/U_Proteomica/UNIDAD/DatosCrudos/jmrodriguezc/projects/sanpro/src/positioner', script)}" \
+  let cmd = `"${common.python_exec}" "${path.join(common.sanpro_dir, script)}" \
+  -i "${in_report}" \
+  -f "${in_fasta}" \
+  -hp "${in_pep_label}" \
+  -hq "${in_pro_label}" \
+  -o  "${out_report}" \
+  1> ${out_log} 2>&1`;
 
-  // // exec the program in sync mode
-  // // common.exec_async(script, cmd);
-  // common.exec_sync(script, cmd);
+  // exec the program in sync mode
+  // common.exec_async(script, cmd);
+  common.exec_sync(script, cmd);
 
-  // // read the output file
-  // try {
-  //   const data = fs.readFileSync(out_report, 'utf8');
-  //   console.log("OK");
-
-  //   // res.set('Content-Type', 'text/plain;charset=utf-8');
-  //   // res.send({ "msg": data });
-
-  // } catch (err) {
-  //   console.error(err);
-  // }
-
-  console.log("pasa");
-
-  res.download(`${path.join(common.src_dir, 'kk.tsv')}`);
+  // zip the outputs
+  let out_zip = path.join(out_dir, `${job_id}.zip`);
+  let archive = common.zip_files(out_zip, out_dir, [out_report_n, out_log_n]);
+  
+  // finalize the archive
+  archive.finalize().then(function(){
+    console.log('done zip');
+    res.set('Content-Type', 'application/zip');
+    res.download(out_zip);          
+  });
 
 });
 

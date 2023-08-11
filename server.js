@@ -5,6 +5,8 @@ const body_parser = require('body-parser');
 const ruid = require('express-ruid');
 const swagger_jsdoc = require('swagger-jsdoc');
 const swagger_ui = require('swagger-ui-express');
+const os = require("os");
+// const process = require('process');
 
 const common = require('./routes/common.js');
 
@@ -18,7 +20,10 @@ app.use(
 app.use(body_parser.json());
 
 // Add request id
-app.use(ruid());
+app.use(ruid({
+  prefixSeparator: '_',
+  prefixRoot: function() { return `${os.hostname()}@${process.pid}` }
+}));
 
 
 // Declare the REST services

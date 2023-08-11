@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/CNIC-Proteomics/sanREST#readme",
   "dependencies": {
+    "archiver": "^5.3.1",
     "cross-env": "^7.0.3",
     "express": "^4.18.2",
     "express-ruid": "^1.1.5",
