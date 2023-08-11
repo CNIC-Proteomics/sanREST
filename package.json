@@ -4,8 +4,10 @@
   "description": "A RESTful API that describes the web services and the operations for the report files of iSanXoT",
   "main": "server.js",
   "scripts": {
-    "start": "forever start -p \"%INIT_CWD%\" -l logs/sanrest.log -o logs/sanrest.log -e logs/sanrest.err   server.js",
-    "restart": "forever restart -p \"%INIT_CWD%\" -l logs/sanrest.log -o logs/sanrest.log -e logs/sanrest.err   server.js",
+    "start": "forever start -p \"$INIT_CWD\" -l logs/sanrest.log -o logs/sanrest.log -e logs/sanrest.err   server.js",
+    "restart": "forever restart -p \"$INIT_CWD\" -l logs/sanrest.log -o logs/sanrest.log -e logs/sanrest.err   server.js",
+    "start.win": "forever start -p \"%INIT_CWD%\" -l logs/sanrest.log -o logs/sanrest.log -e logs/sanrest.err   server.js",
+    "restart.win": "forever restart -p \"%INIT_CWD%\" -l logs/sanrest.log -o logs/sanrest.log -e logs/sanrest.err   server.js",
     "test": "forever start -d server.js",
     "stop": "forever stop server.js",
     "stopall": "forever stopall",
