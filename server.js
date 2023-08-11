@@ -59,12 +59,12 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
-        description: "Localhost server"
+        url: "http://10.142.32.36:3000",
+        description: "Production server"
       },
       {
-        url: "http://10.142.32.36:3000",
-        description: "cnic-27181 IP server"
+        url: "http://localhost:3000",
+        description: "Localhost server"
       },
     ],
   },
