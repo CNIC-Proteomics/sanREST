@@ -17,4 +17,7 @@ status:
 
 
 # Executables for the scripts
-python_exec: c:/Users/jmrodriguezc/softwares/Python_3.10.1/python
+# for cnic-24644 (development)
+# python_exec: c:/Users/jmrodriguezc/softwares/Python_3.10.1/python
+# for cnic-27181 (production)
+python_exec: C:/Users/jmrodriguezc/softwares/Python310/python.exe

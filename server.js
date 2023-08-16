@@ -22,7 +22,8 @@ app.use(body_parser.json());
 // Add request id
 app.use(ruid({
   prefixSeparator: '_',
-  prefixRoot: function() { return `${os.hostname()}@${process.pid}` }
+  // prefixRoot: function() { return `${os.hostname()}@${process.pid}` }
+  prefixRoot: function() { return process.pid }
 }));
 
 
