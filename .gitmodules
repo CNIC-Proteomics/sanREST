@@ -1,0 +1,3 @@
+[submodule "src/sanpro"]
+	path = src/sanpro
+	url = https://github.com/CNIC-Proteomics/sanpro.git
