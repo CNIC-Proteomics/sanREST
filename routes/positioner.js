@@ -17,7 +17,6 @@ const common = require("./common.js");
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     let dir = path.join(common.job_dir, req.rid);
-    // let dir = path.join(common.job_dir, 'cnic-24644@32164_6041b930506685832a85af4e-0000000000000001');
     common.create_directory(dir);
     cb(null, dir);
   },
@@ -28,7 +27,7 @@ const storage = multer.diskStorage({
 const upload_files_job = multer({
   storage,
   limits: {
-    fileSize: 1024 * 1024 * 100 // 100Mb
+    fileSize: 1024 * 1024 * 1000 // 1000Mb
   },
   fileFilter: (req, file, cb) => {
     const allowedTypes = ['application/octet-stream'];
@@ -90,7 +89,6 @@ router.post('/add_pep_position', upload_files_job.any(), function (req, res) {
 
   // get the request identifier (job id)
   let job_id = req.rid;
-  // let job_id = 'cnic-24644@32164_6041b930506685832a85af4e-0000000000000001';
 
   // obtain the inputs files from the request
   // console.log(req.files);
