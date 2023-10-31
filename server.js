@@ -38,8 +38,11 @@ common.remove_uploads(job_dir);
 
 
 // Add the listening port
-const PORT = process.env.PORT || 3000;
-app.listen(PORT);
+const port = process.env.PORT || 3000;
+const host = '0.0.0.0'; // Listen on all network interfaces
+app.listen(port, host, () => {
+  console.log(`Server is running on http://${host}:${port}/`);
+});
 
 
 /** SWAGGER SERVER **/
@@ -74,7 +77,8 @@ const options = {
       },
     ],
   },
-  apis: ["./routes/*.js"],
+  // apis: ["./routes/*.js"],
+  apis: ["./routes/positioner.js"],
 };
 
 // Add the Swagger document
@@ -92,4 +96,4 @@ app.use(
   })
 );
 
-console.debug("Server listening on port: " + PORT);
+console.debug(`Server listening on port http://${host}:${port}/`);

@@ -6,6 +6,9 @@ To start it, install Node:
 npm install
 ```
 
+Copy into the "data" folder, the APPRIS annotation table for the correct execution of "get_appris" service.
+
+
 And run (on Windows):
 ```
 npm run start.win
@@ -24,6 +27,8 @@ npm run stopall
 npm run restartall
 ```
 
+<!--
+
 ## How to set up a git project to use an external repo submodule?
 
 You have a project -- call it MyWebApp that already has a github repo
@@ -41,3 +46,5 @@ git submodule update --init --recursive
 ```
 
 You should now have all the latest code cloned into the submodule. If the jquery repo changes and you want to pull the latest code down, just issue the submodule update command again. Please note: I typically have a number of external repositories in my projects, so I always group the repos under an "externals" directory.
+
+-->
